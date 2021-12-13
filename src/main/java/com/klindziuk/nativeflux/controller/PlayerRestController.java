@@ -9,6 +9,7 @@ import com.klindziuk.nativeflux.service.PlayerService;
 import java.util.logging.Level;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,43 +35,43 @@ public class PlayerRestController {
 
   @GetMapping("players/all")
   Flux<Player> getAllPlayers() {
-    log.info("Get all players using 'getAllPlayers' query");
+    log.info("Retrieving all players");
     return processWithLog(this.playerService.getAllPlayers());
   }
 
   @GetMapping("player/{id}")
   Mono<Player> getPlayerById(@PathVariable Long id) {
-    log.info("Get player by id using 'getPlayerById' query");
+    log.info("Retrieving player with id: '{}'", id);
     return processWithLog(this.playerService.getPlayerById(id));
   }
 
   @GetMapping("players/club/{club}")
   Flux<Player> getPlayersByClub(@PathVariable String club) {
-    log.info("Get players by club using 'getPlayersByClub' query");
+    log.info("Retrieving players for club: '{}'", club);
     return processWithLog(this.playerService.getPlayersByClub(club));
   }
 
   @GetMapping("players/nationality/{nationality}")
   Flux<Player> getPlayersByNationality(@PathVariable String nationality) {
-    log.info("Get players by nationality using 'getPlayersByNationality' query");
+    log.info("Retrieving players with nationality: '{}'", nationality);
     return processWithLog(this.playerService.getPlayersByNationality(nationality));
   }
 
   @PostMapping("player/add")
   Mono<Player> addPlayer(@RequestBody Player player) {
-    log.info("Add player using 'addPlayer' mutation");
+    log.info("Adding player to repository");
     return processWithLog(this.playerService.addPlayer(player));
   }
 
   @PostMapping("player/update/{id}")
-  Mono<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
-    log.info("Updating player using 'updatePlayer' mutation");
+  Mono<Player> updatePlayer(@Validated @PathVariable Long id, @RequestBody Player player) {
+    log.info("Updating player with id: {}", id);
     return processWithLog(this.playerService.updatePlayer(id, player));
   }
 
   @DeleteMapping("player/delete/{id}")
   Mono<Player> deletePlayerById(@PathVariable Long id) {
-    log.info("Delete player using 'deletePlayerById' mutation");
+    log.info("Removing player with id: {}", id);
     return processWithLog(this.playerService.deletePlayerById(id));
   }
 

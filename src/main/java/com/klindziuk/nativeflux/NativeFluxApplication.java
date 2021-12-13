@@ -8,9 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FluxNativeApplication {
+public class NativeFluxApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(FluxNativeApplication.class, args);
+    SpringApplication.run(NativeFluxApplication.class, args);
   }
 }
